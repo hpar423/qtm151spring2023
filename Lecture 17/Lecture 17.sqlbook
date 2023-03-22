@@ -8,13 +8,10 @@ SQL is a language specializing in database management
 - Widely used in industry
 - Typical task is to extract data from server
 - Many concepts are similar to Python
-- As with Python, many different interfaces to code
 -- SQLBook: Markup
 # <span style="color:darkblue"> I. Connect to Local Server </span>
 
 <font size="5"> 
-
-
 
 Getting started:
 - Follow installation instructions on Github
@@ -22,15 +19,16 @@ Getting started:
 panel on the left:
 
 <img src="figures/serverconnection_sql_vscode.png" alt="drawing" width="600"/>
--- SQLBook: Code
+-- SQLBook: Markup
+<font size = "5">
 
--- BASIC SYNTAX:
+<span style="color:red"> Common pitfall: </span>
 
--- Commands separated by a semicolon ";"
--- Commands in upper case, inputs lower case
--- Include comments with two dashes "--"
--- Arguments in parenthesis, separated by a comma ","
--- For strings, use single quotations '...', not double "...".
+- Make sure to click on the "localhost" tab 
+- If you don't, you won't be able to run the code
+
+
+<img src="figures/serverconnection_sql_vscode-3.png" alt="drawing" width="300"/>
 -- SQLBook: Markup
 # <span style="color:darkblue"> II. Create SQL Table from Scratch </span>
 -- SQLBook: Markup
@@ -42,6 +40,7 @@ Delete existing table
 -- If it doesn't exist nothing happens
 -- System commands are in upper case and user defined
 -- names are in lower case
+-- Comments are written with double dashes "--" rather than hastag (#)
 
 DROP TABLE IF EXISTS drivers;
 -- SQLBook: Markup
@@ -102,7 +101,6 @@ Try it yourself!
 
 
 
-
 -- SQLBook: Markup
 # <span style="color:darkblue"> II. Dataset Operations </span>
 
@@ -112,9 +110,9 @@ Try it yourself!
 Extracting columns from table
 -- SQLBook: Code
 -- SELECT extracts certain COLUMNS
--- FROM is used to indicate the 
+-- FROM is used to indicate the source table
 
-SELECT driver_id nationality FROM drivers;
+SELECT driver_id, nationality FROM drivers;
 -- SQLBook: Markup
 <font size="5"> 
 
@@ -133,7 +131,7 @@ WHERE nationality = 'German';
 
 -- Evalute OR conditions
 SELECT * FROM drivers
-WHERE (nationality = 'German') OR (nationality = 'British');
+WHERE (nationality = 'United States') OR (nationality = 'Indian');
 
 -- Evaluate AND conditions
 SELECT * FROM drivers
@@ -144,13 +142,16 @@ WHERE (nationality = 'German') AND (driver_id = 2);
 
 Aggregate
 -- SQLBook: Code
+-- To compute aggregate statistics use a statistic function,
+-- such as SUM() or AVG() 
+-- The AS is an alias which assigns a name to the aggregate statistic
 
-SELECT COUNT(*) AS num_rows,
-       SUM(victories) AS sum_victories,
+SELECT SUM(victories) AS sum_victories,
+       COUNT(*) AS num_rows,
        AVG(victories) AS mean_victories,
        MIN(victories) AS min_victories,
        MAX(victories) AS max_victories
-FROM drivers
+FROM drivers;
 -- SQLBook: Markup
 <font size="5"> 
 
@@ -185,8 +186,6 @@ Try it yourself!
 with more than 60 victories
 -- SQLBook: Code
 -- Write your own code!
-
-
 
 
 
@@ -251,11 +250,20 @@ Equivalence:
 
 **PYTHON** $\qquad \qquad \ \ $ **SQL** <br>
 ```[] ``` $\qquad \qquad \qquad \ \ \ $ ```SELECT``` <br>
-```.query() ``` $\qquad \qquad $ ```WHERE``` (before subsetting) <br>
-```.query() ``` $\qquad \qquad $ ```HAVING``` (after subsetting) <br>
+```.query() ``` $\qquad \qquad $ ```WHERE``` (before aggregating) <br>
+```.query() ``` $\qquad \qquad $ ```HAVING``` (after aggregating) <br>
 ```.groupby().agg() ``` $\ $ ```SELECT ... AS ... ```<br>
 $\qquad \qquad \qquad \qquad \ $```GROUP BY```<br>
 
+-- SQLBook: Code
+
+-- BASIC SYNTAX:
+
+-- Commands separated by a semicolon ";"
+-- Commands in upper case, inputs lower case
+-- Include comments with two dashes "--"
+-- Arguments in parenthesis, separated by a comma ","
+-- For strings, use single quotations '...', not double "...".
 -- SQLBook: Markup
 <font size="5"> 
 
