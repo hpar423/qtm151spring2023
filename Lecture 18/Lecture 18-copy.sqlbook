@@ -35,7 +35,7 @@ United States Congress dataset
 
 Create table from codebook/dictionary
 -- SQLBook: Code
--- Active: 1679515732880@@127.0.0.1@5432@postgres
+-- Active: 1679512115690@@127.0.0.1@5432@postgres
 -- We start by deleting the old table
 -- SQL does not allow you to create a table if one already exists
 DROP TABLE IF EXISTS us_congress_members;
@@ -52,6 +52,7 @@ CREATE TABLE us_congress_members (
         chamber      varchar(30)
 );
 -- SQLBook: Code
+-- Active: 1679512115690@@127.0.0.1@5432@postgres
 -- (i) The NOT NULL option is a special restrition saying
 --     that you are not allowed to enter missing data for this column
 --     SQL includes a lot of data quality checks like this
@@ -86,6 +87,14 @@ Try it yourself!
 -- SQLBook: Code
 -- Write your own code
 
+DROP TABLE IF EXISTS bills_subjects;
+
+CREATE TABLE bills_subjects (
+        "Congress"  int NOT NULL,
+        bill_number int ,
+        bill_type   varchar(30),
+        bill_subject varchar(30)
+);
 
 -- SQLBook: Markup
 # <span style="color:darkblue"> II. Import CSV into SQL </span>
@@ -149,15 +158,16 @@ Try it yourself!
 SELECT * FROM us_congress_members
 ```
 -- SQLBook: Code
+-- Active: 1679512115690@@127.0.0.1@5432@postgres
 -- Write your own code
 -- Note in the instructor's computer this is:
 -- You just have to change the FROM argument
 --
-COPY us_congress_members
-FROM 'D:\GitHub\qtm151spring2023\Lecture 18\data\us_congress_members.csv'
+COPY us_congress_members 
+FROM '/private/tmp/data/us_congress_members.csv'
 WITH (DELIMITER ',', FORMAT csv, HEADER MATCH);
 
-
+SELECT * FROM us_congress_members
 
 -- SQLBook: Markup
 <font size = "5">
@@ -176,9 +186,14 @@ SELECT * FROM bills_actions
 -- You just have to change the FROM argument
 --
 COPY bills_actions
-FROM 'D:\GitHub\qtm151spring2023\Lecture 18\data\bills_actions.csv'
+FROM '/private/tmp/data/bills_actions.csv'
 WITH (DELIMITER ',', FORMAT csv, HEADER MATCH);
 
+SELECT * FROM bills_actions
+
+
+-- SQLBook: Code
+-- Active: 1679512115690@@127.0.0.1@5432@postgres
 
 -- SQLBook: Markup
 <font size = "5">
